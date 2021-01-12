@@ -1,15 +1,22 @@
 <template>
   <div id="app">
-    <p>{{ message }}</p>
+  <Header />
+    <!-- <p>{{ message }}</p> -->
+    <router-view/>
   </div>
 </template>
 
 <script>
+import Header from './packs/components/layouts/header';
+
 export default {
   data: function () {
     return {
-      message: "Hello Vue!"
+      // message: "Hello Vue!"
     }
+  },
+  components: {
+    Header
   }
 }
 </script>
