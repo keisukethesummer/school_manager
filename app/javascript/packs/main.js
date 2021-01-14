@@ -9,6 +9,7 @@ import Vue from 'vue'
 import App from '../app.vue'
 import router from './router/router'
 import firebase from 'firebase'
+import store from './store/index'
 
   // Firebaseの初期化処理
 const config = {
@@ -25,6 +26,7 @@ firebase.initializeApp(config);
 document.addEventListener('DOMContentLoaded', () => {
   const app = new Vue({
     router,
+    store,
     render: h => h(App)
   }).$mount()
   document.body.appendChild(app.$el)
