@@ -28,8 +28,12 @@ export default {
           email: this.email,
           password: this.password,
           returnSecureToken: true //IDとtokenを返すかどうか。常にtrueである必要がある
+        }
+      ).then(res => {
+        console.log(res)
+        this.$store.commit('updateIdToken', res.data.idToken)
+        this.$router.push('/');
       })
-      .then(res => console.log(res))
       .catch(err => console.log(err))
       // firebase.auth().signInWithEmailAndPassword(this.email, this.password)
       // .then(user => {

@@ -30,9 +30,11 @@ export default {
           returnSecureToken: true
         }
       ).then((response) => {
+        this.$store.commit('updateIdToken', response.data.idToken);
+        this.$router.push('/');
         console.log(response); //返ってきたレスポンスをログに表示
         console.log(response.data); //返ってきたレスポンスをログに表示
-        console.log(response,status); //200
+        console.log(response.status); //200
       })
       .catch((err => {
         console.log(err)
