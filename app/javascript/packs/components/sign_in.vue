@@ -10,19 +10,37 @@
 </template>
 
 <script>
-import firebase from 'firebase';
+// import firebase from 'firebase';
+import axios from '../axios_for_auth';
 
 export default {
+  data() {
+    return {
+      email: "",
+      password:""
+    }
+  },
   methods: {
     SignIn: function() {
-      firebase.auth().signInWithEmailAndPassword(this.email, this.password)
-      .then(user => {
-        alert('ログイン成功！')
-        this.$router.push('/')
-      }
-      ).catch(
-        alert(error.message)
-      )
+      axios.post(
+        '/accounts:signInWithPassword?key=AIzaSyD5xWv0BoG0RWCI3Zx4eGL11-hAcT7Anno',
+        {
+          email: this.email,
+          password: this.password,
+          returnSecureToken: true //IDとtokenを返すかどうか。常にtrueである必要がある
+      })
+      .then(res => console.log(res))
+      .catch(err => console.log(err))
+      // firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+      // .then(user => {
+      //   alert('ログイン成功！')
+      //   this.$router.push('/')
+      // }
+      // ).catch(
+      //   alert(error.message)
+      // )
+      this.email = "";
+      this.password = "";
     }
   }
 }
