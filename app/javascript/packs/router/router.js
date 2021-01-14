@@ -29,4 +29,21 @@ const router = new VueRouter({
   routes
 })
 
+// router.beforeEach((to, from, next) => {
+//   let requireAuth = to.matched.some(record => record.meta.requireAuth)
+//   let currentUser = firebase.auth().currentUser
+//   if (requireAuth) {
+//     if (!currentUser) {
+//       next({
+//         path: '/sign_in',
+//         query: { redirect: to.fullPath }
+//       })
+//     } else {
+//       next()
+//     }
+//   } else {
+//     next()
+//   }
+// })
+
 export default router

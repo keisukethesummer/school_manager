@@ -16,7 +16,10 @@ export default {
   methods: {
     SignIn: function() {
       firebase.auth().signInWithEmailAndPassword(this.email, this.password)
-      .then(alert('ログイン成功！')
+      .then(user => {
+        alert('ログイン成功！')
+        this.$router.push('/')
+      }
       ).catch(
         alert(error.message)
       )
