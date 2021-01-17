@@ -3,7 +3,8 @@ import VueRouter from 'vue-router';
 import Home from '../components/home';
 import SignIn from '../components/sign_in';
 import SignUp from '../components/sign_up';
-// import from
+import Students from '../components/students';
+import store from '../store';
 
 Vue.use(VueRouter)
 
@@ -16,12 +17,39 @@ const routes = [
   {
     path: '/sign_in',
     name: 'sign_in',
-    component: SignIn
+    component: SignIn,
+    beforeEnter(to, from, next) {
+      if (store.getters.idToken) {
+        next('/');
+      } else {
+        next();
+      }
+    }
   },
   {
     path: '/sign_up',
     name: 'sign_up',
-    component: SignUp
+    component: SignUp,
+    beforeEnter(to, from, next) {
+      if (store.getters.idToken) {
+        next('/');
+      } else {
+        next();
+      }
+    }
+
+  },
+  {
+    path: '/students',
+    name: 'students',
+    component: Students,
+    beforeEnter(to, from, next) {
+      if (store.getters.idToken) {
+        next();
+      } else {
+        next('/sign_in');
+      }
+    }
   }
 ]
 

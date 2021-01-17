@@ -2,38 +2,31 @@
   <div>
     <div>
       <router-link to="/">HOME</router-link>
-      <router-link to="/sign_up">新規登録はこちら</router-link>
-      <router-link to="/sign_in">ログイン</router-link>
+      <router-link to="/sign_up" v-if="!isSignedIn">新規登録はこちら</router-link>
+      <router-link to="/sign_in" v-if="!isSignedIn">ログイン</router-link>
+      <router-link to="/students" v-if="isSignedIn">生徒一覧</router-link>
 
-      <!-- <p>アドレス名:{{ email }}さん -->
-        <!-- <button @click="signOut">サインアウト</button> -->
-      <!-- </p> -->
+      <button @click="signOut" v-if="isSignedIn">ログアウト</button>
     </div>
   </div>
 </template>
 
 <script>
-// import firebase from 'firebase';
-// // let currentUser = firebase.auth().currentUser
-
-// export default {
-//   name: "Header",
-//   data: {
-//     notSignedIn: false,
-//     function() {
-//       return {
-//         email: firebase.auth().currentUser.email
-//     }
-//   }
-//       },
-//   methods: {
-//     signOut() {
-//       firebase.auth().signOut().then(() => {
-//         // this.$router.push('/')
-//       })
-//     }
-//   }
-// }
+export default {
+  computed: {
+    // ログイン中かどうかbooleanで返却
+    isSignedIn() {
+      return this.$store.getters.idToken !== null;
+    }
+  },
+  methods: {
+    // ログアウト機能
+    signOut() {
+      this.$store.commit('updateIdToken', null);
+      this.$router.push('/')
+    }
+  }
+}
 </script>
 
 <style scoped>
