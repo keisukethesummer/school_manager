@@ -1,9 +1,9 @@
 import Vue from "vue";
 import VueRouter from 'vue-router';
-import Home from '../components/home';
-import SignIn from '../components/sign_in';
-import SignUp from '../components/sign_up';
-import Students from '../components/students';
+import Home from '../components/Home';
+import SignIn from '../components/SignIn';
+import SignUp from '../components/SignUp';
+import Students from '../components/Students';
 import store from '../store';
 
 Vue.use(VueRouter)

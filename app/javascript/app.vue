@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Header from './packs/components/layouts/header';
+import Header from './packs/components/layouts/Header';
 
 export default {
   data: function () {

@@ -32,7 +32,7 @@ export default {
       ).then(res => {
         console.log(res)
         this.$store.commit('updateIdToken', res.data.idToken)
-        this.$router.push('/');
+        this.$router.push('/students');
       })
       .catch(err => console.log(err))
       // firebase.auth().signInWithEmailAndPassword(this.email, this.password)
