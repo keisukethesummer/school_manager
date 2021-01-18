@@ -10,7 +10,7 @@
 </template>
 
 <script>
-// import firebase from 'firebase';
+import firebase from 'firebase';
 import axios from '../axios_for_auth';
 
 export default {
@@ -22,27 +22,38 @@ export default {
   },
   methods: {
     SignIn: function() {
-      axios.post(
-        '/accounts:signInWithPassword?key=AIzaSyD5xWv0BoG0RWCI3Zx4eGL11-hAcT7Anno',
-        {
-          email: this.email,
-          password: this.password,
-          returnSecureToken: true //IDとtokenを返すかどうか。常にtrueである必要がある
-        }
-      ).then(res => {
-        console.log(res)
-        this.$store.commit('updateIdToken', res.data.idToken)
-        this.$router.push('/students');
+      // axios.post(
+      //   '/accounts:signInWithPassword?key=AIzaSyD5xWv0BoG0RWCI3Zx4eGL11-hAcT7Anno',
+      //   {
+      //     email: this.email,
+      //     password: this.password,
+      //     returnSecureToken: true //IDとtokenを返すかどうか。常にtrueである必要がある
+      //   }
+      // ).then(res => {
+      //   console.log(res)
+      //   this.$store.commit('updateIdToken', res.data.idToken)
+      //   this.$router.push('/students');
+      // })
+      // .catch(err => console.log(err));
+      firebase.auth().signInWithEmailAndPassword(this.email, this.password)
+      .then(res => {
+        console.log(res);
+        alert('ログイン成功！');
+        // this.$store.commit('updateIdToken', res.data.idToken);
+        this.$router.push('/students')
+      }
+      ).catch((err) => {
+        alert(err.message)
       })
-      .catch(err => console.log(err))
-      // firebase.auth().signInWithEmailAndPassword(this.email, this.password)
-      // .then(user => {
-      //   alert('ログイン成功！')
-      //   this.$router.push('/')
-      // }
-      // ).catch(
-      //   alert(error.message)
-      // )
+
+      // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
+      // .then(function() {
+      //   return firebase.auth().signInWithEmailAndPassword(email, password);
+      // })
+      // .catch(function(err) {
+      //   console.log(err)
+      // })
+
       this.email = "";
       this.password = "";
     }

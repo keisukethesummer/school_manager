@@ -10,7 +10,7 @@
 </template>
 
 <script>
-// import firebase from 'firebase'
+import firebase from 'firebase'
 import axios from '../axios_for_auth'
 
 export default {
@@ -21,35 +21,34 @@ export default {
     }
   },
   methods: {
-    signUp() { //axiosでAPIを叩くメソッド
-      axios.post(
-        '/accounts:signUp?key=AIzaSyD5xWv0BoG0RWCI3Zx4eGL11-hAcT7Anno',
-        {
-          email: this.email,
-          password: this.password,
-          returnSecureToken: true
-        }
-      ).then((response) => {
-        this.$store.commit('updateIdToken', response.data.idToken);
-        this.$router.push('/');
-        console.log(response); //返ってきたレスポンスをログに表示
-        console.log(response.data); //返ってきたレスポンスをログに表示
-        console.log(response.status); //200
+    signUp() { 
+    //axiosでAPIを叩く場合
+      // axios.post(
+      //   '/accounts:signUp?key=AIzaSyD5xWv0BoG0RWCI3Zx4eGL11-hAcT7Anno',
+      //   {
+      //     email: this.email,
+      //     password: this.password,
+      //     returnSecureToken: true
+      //   }
+      // ).then((response) => {
+      //   this.$store.commit('updateIdToken', response.data.idToken);
+      //   this.$router.push('/');
+      //   console.log(response); //返ってきたレスポンスをログに表示
+      //   console.log(response.data); //返ってきたレスポンスをログに表示
+      //   console.log(response.status); //200
+      // })
+      // .catch((err => {
+      //   console.log(err)
+      // }))
+
+      firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
+      .then((user) => {
+        alert('アカウントを作成しました!ログイン画面へ移りますのでログインしてください', user.email);
+        this.$router.push('/sign_in')
       })
-      .catch((err => {
-        console.log(err)
-      }))
-      this.email ="";
-      this.password ="";
-    
-      // firebase.auth().createUserWithEmailAndPassword(this.email, this.password)
-      // .then((user) => {
-      //   alert('アカウントを作成しました!ログイン画面へ移りますのでログインしてください', user.email);
-      //   this.$router.push('/sign_in')
-      // })
-      // .catch(error => {
-      //   alert(error.message)
-      // })
+      .catch(error => {
+        alert(error.message)
+      })
     }
   }
   
