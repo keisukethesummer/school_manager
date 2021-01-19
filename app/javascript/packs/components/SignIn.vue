@@ -35,11 +35,12 @@ export default {
       //   this.$router.push('/students');
       // })
       // .catch(err => console.log(err));
+
       firebase.auth().signInWithEmailAndPassword(this.email, this.password)
       .then(res => {
         console.log(res);
-        alert('ログイン成功！');
-        // this.$store.commit('updateIdToken', res.data.idToken);
+        const token = firebase.auth().currentUser.getIdToken(true)
+        this.$store.commit('updateIdToken', token);
         this.$router.push('/students')
       }
       ).catch((err) => {
