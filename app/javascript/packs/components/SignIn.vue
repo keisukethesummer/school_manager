@@ -41,19 +41,12 @@ export default {
         console.log(res);
         const token = firebase.auth().currentUser.getIdToken(true)
         this.$store.commit('updateIdToken', token);
+        console.log('state:',this.$store)
         this.$router.push('/students')
       }
       ).catch((err) => {
-        alert(err.message)
+        console.log(err.message)
       })
-
-      // firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION)
-      // .then(function() {
-      //   return firebase.auth().signInWithEmailAndPassword(email, password);
-      // })
-      // .catch(function(err) {
-      //   console.log(err)
-      // })
 
       this.email = "";
       this.password = "";
